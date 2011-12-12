@@ -4,8 +4,7 @@ class TinySongHelper extends AppHelper {
     
     /** Helper default options */
     var $_defaultOptions = array(
-        'api_key' => null,
-        'foo' => 'bar'    
+        'api_key' => null
     );
     
     
@@ -24,7 +23,6 @@ class TinySongHelper extends AppHelper {
     function __construct($options=array()) {
         parent::__construct($options);
         $this->settings = array_merge($this->_defaultOptions, $options);
-        debug($this->settings);
     }
      
    /** 
