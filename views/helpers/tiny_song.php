@@ -35,8 +35,9 @@ class TinySongHelper extends AppHelper {
     */     
     function link($apiMethods, $title=null, $htmlAttributes=array()) {
         $apiMethods['api_method'] = 'a';
-        if ($response = ($this->_request($apiMethods)))
+        if ($response = ($this->_request($apiMethods))) {
             return $this->output( $this->Html->link($title, $response, $htmlAttributes) );
+        }
     }
     
    /**
@@ -86,11 +87,14 @@ class TinySongHelper extends AppHelper {
         $url = sprintf($this::API_URL, $args['api_method'], implode('+', $query), $args['api_key']);
         $response = $HttpSocket->get($url, array('format' => 'json'));
         
-        if (isset($response['error'])) {
-            $this->log(sprintf(__d('tinysong_plugin', 'API Error: %s', true), $response['error']), 'TinysongPlugin');
+        $response = json_decode($response, true);
+        if (is_array($response) && isset($response['error'])) {
+            $errmsg = sprintf(__d('tinysong_plugin', 'API Error: %s', true), $response['error']);
+            $this->log($errmsg, 'TinysongPlugin');
+            trigger_error($errmsg, E_USER_WARNING);
             return null;
         }
-        return json_decode($response, true);
+        return $response;
     }
 
 
