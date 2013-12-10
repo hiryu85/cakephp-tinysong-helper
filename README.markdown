@@ -2,7 +2,7 @@
 ==========================
 
 ## Requirements
-- CakePHP 1.3
+- CakePHP 2
 - API key [tinysong.com](http://www.tinysong.com/api)
 
 ## Installation
